@@ -1,0 +1,21 @@
+{
+  "patient_name": "Sita Bai",
+  "age": 29,
+  "gender": "Female",
+  "exam_type": "USG Abdomen & Pelvis",
+  "findings": {
+     "liver": "Mild fatty changes",
+     "gall_bladder": "Normal",
+     "kidneys": "No calculi",
+     "uterus": "Normal size",
+     "ovaries": "No cysts"
+  },
+  "measurements": {
+     "liver_size": "14.2 cm",
+     "gb_wall": "2.5 mm",
+     "rt_kidney": "9.8 cm",
+     "lt_kidney": "9.7 cm"
+  },
+  "risk_score": "Low",
+  "ai_doctor_summary": "Ultrasound shows mild fatty liver changes, no acute findings..."
+}
