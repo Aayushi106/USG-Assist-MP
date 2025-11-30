@@ -1,124 +1,125 @@
 # USG-Assist-MP
 
-# Smart USG Report Analysis & Automated Medical Summary System
+USG Report Image Analysis System
+AI-Assisted Ultrasound Report Extraction, Clinical Metric Parsing & Automated Medical Summary Generation
+ Overview
 
-## Overview
-This project extracts clinical information from ultrasound (USG) report images, identifies maternal and medical risks, and generates structured downloadable reports for patients and doctors.
+This project is a Healthcare AI prototype built for Hack for Social Cause – VBYLD 2026.
+It converts Ultrasound (USG) report images into:
 
-It is designed to support early detection of high-risk conditions in regions like Madhya Pradesh where digital reporting and medical interpretation gaps delay treatment.
+Structured medical data
 
----
+Auto-generated patient summaries
 
-## Key Features
-- **Image Upload Support**
-- **OCR Extraction (Tesseract)**
-- **Medical Field Extraction (Regex + NLP)**
-- **Risk Classification for Key Conditions**
-- **Clean UI for Patients & Doctors**
-- **Downloadable PDF Report**
-- **Works with Low-Quality Images**
-- **Fast Local Processing (No cloud needed)**
+Auto-generated doctor interpretation
 
----
+Downloadable PDF reports
 
-## Tech Stack
-- **Python** (Backend)
-- **FastAPI**
-- **Tesseract OCR**
-- **React / HTML Frontend** (depending on your version)
-- **ReportLab** (PDF generation)
-- **Regex-based Medical NLP**
+Extracted clinical metrics
 
----
+Basic risk scoring for early triage
 
-## Features Extracted Automatically
-- Gestational age  
-- AFI  
-- Placenta position  
-- Fetal biometry (BPD, HC, AC, FL)  
-- Presentation (cephalic/breech)  
-- Fatty liver  
-- Kidney stones  
-- Gallstones  
-- Ovarian cysts  
-- Fibroids  
-- Cervical measurements  
-- Doppler keywords  
+This version uses Gemini (Google AI Studio) for OCR + clinical interpretation because it is faster to ship a prototype within hackathon timelines.
 
----
+ Problem Motivation (Madhya Pradesh)
 
-## Risk Detection (Rule-Based Engine)
-Flags:
-- **High Risk:** Low AFI, placenta previa, breech late pregnancy, severe IUGR indicators  
-- **Moderate Risk:** Borderline AFI, mild cysts, small fibroids  
-- **Normal:** Normal measurements, position, and findings  
+Rural & semi-urban districts in MP face:
 
----
+Lack of radiologists → delayed USG interpretations
 
-## How to Run Backend
+Heavily mixed Hindi–English reports → OCR complexity
 
-pip install -r requirements.txt
-uvicorn main:app --reload
+Patients traveling 40–80 km for follow-ups
 
-yaml
-Copy code
+Poor record digitization → reports get lost
 
----
+Antenatal cases (pregnancy) often miss critical abnormalities
 
-## How to Run Frontend (If React Version)
+This system provides an instant solution:
+Take photo → AI extracts → AI interprets → PDF generated → Download/Share
 
-npm install
-npm run dev
+This directly helps PHCs, CHCs, district hospitals, private clinics, and JANANI centers.
 
-yaml
-Copy code
+Read full justification:
+ docs/state-justification-mp.md
 
----
+ Architecture Summary
 
-## Project Structure
+See full diagram:
+ docs/architecture-diagram.md
 
-backend/
-frontend/
-docs/
-sample_reports/
-README.md
-LICENSE
-.gitignore
+High-level flow:
 
-yaml
-Copy code
+User Uploads USG Image
+        │
+        ▼
+Gemini Vision OCR (Google AI Studio)
+        │
+        ▼
+Medical NLP Extractor (Findings, Organs, Measurements)
+        │
+        ▼
+Risk Engine (Pregnancy, Liver, Gallbladder, Kidney, Prostate)
+        │
+        ▼
+Summary Generator (Patient Report + Doctor Note)
+        │
+        ▼
+PDF Report Builder
+        │
+        ▼
+Download / Share
 
----
+ Sample Output
 
-## Sample Output (JSON)
+(Actual JSON file in sample_reports/output_sample.json)
 
 {
-"gestational_age": "34 weeks 2 days",
-"afi": "7 cm",
-"placenta": "Posterior",
-"presentation": "Cephalic",
-"risks": {
-"high": ["Borderline AFI"],
-"moderate": [],
-"normal": ["Placenta normal", "Presentation normal"]
+  "patient_name": "Sita Bai",
+  "age": 29,
+  "gender": "Female",
+  "exam_type": "USG Abdomen & Pelvis",
+  "findings": {
+     "liver": "Mild fatty changes",
+     "gall_bladder": "Normal",
+     "kidneys": "No calculi",
+     "uterus": "Normal size",
+     "ovaries": "No cysts"
+  },
+  "measurements": {
+     "liver_size": "14.2 cm",
+     "gb_wall": "2.5 mm",
+     "rt_kidney": "9.8 cm",
+     "lt_kidney": "9.7 cm"
+  },
+  "risk_score": "Low",
+  "ai_doctor_summary": "Ultrasound shows mild fatty liver changes, no acute findings..."
 }
-}
 
-yaml
-Copy code
+ Demo
 
----
+Your live prototype built using Google Gemini Studio (UI Workflow) lives here:
 
-## State Relevance (Madhya Pradesh)
-- High maternal mortality  
-- Late diagnosis due to paper reports  
-- Rural–urban medical gap  
-- Low specialist availability  
+ prototype_ui/          google-studio-link.txt
 
-This system digitizes ultrasound findings instantly and supports frontline workers.
+ Future Roadmap
 
----
+Located in:
+  backend_plan/
 
-## Disclaimer
-This tool is *not a medical device*. It assists clinicians; it does not replace diagnosis.
+Includes:
 
+api_design.md
+
+risk_engine_logic.md
+
+future_code_skeleton.md
+
+ License
+
+MIT License — free for anyone to use, modify, improve.
+
+ Team-
+ Hemant verma
+ Aayushi malviya
+ Aditya verma
